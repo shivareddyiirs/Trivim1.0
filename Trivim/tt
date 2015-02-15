@@ -1,0 +1,2 @@
+with open("F://JRF//Trivim2//Projects//11//coordinates.txt")as cordd:
+    print cordd.readlines[1]
