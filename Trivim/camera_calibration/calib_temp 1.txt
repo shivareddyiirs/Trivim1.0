@@ -1,0 +1,10 @@
+Camera Name : Sony Cybershot DSC HX10V
+Sensor Width : 6.16
+Root Mean Square(RMS) value : 0.245463985139
+Distortion Coefficients : -0.300053125616	0.151163702265	0.000228948272776	-0.000674833038901	-0.0692921887289	
+Camera Matrix : 
+[ 535.74220892    0.          334.40119377]
+[   0.          535.63956783  241.12700621]
+[ 0.  0.  1.]
+Focal Length(pixels) : 4700
+Focal Length(mm) : 6
