@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'Flowchart.ui'
 #
-# Created: Fri Feb 13 15:50:38 2015
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Mon Feb 16 11:58:15 2015
+#      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -39,46 +39,46 @@ class Ui_ProcessFlow(object):
         self.groupBox.setAlignment(QtCore.Qt.AlignCenter)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.pushButton_10 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_10.setGeometry(QtCore.QRect(90, 330, 481, 51))
+        self.pushButton_10.setGeometry(QtCore.QRect(90, 310, 481, 51))
         self.pushButton_10.setStyleSheet(_fromUtf8("color: rgb(170, 0,0);\n"
-"font: 14pt \"MS Shell Dlg 2\";\n"
+"font: 75 18pt \"Times New Roman\";\n"
 ""))
         self.pushButton_10.setObjectName(_fromUtf8("pushButton_10"))
         self.line_6 = QtGui.QFrame(self.groupBox)
-        self.line_6.setGeometry(QtCore.QRect(320, 560, 20, 31))
+        self.line_6.setGeometry(QtCore.QRect(320, 540, 20, 31))
         self.line_6.setFrameShadow(QtGui.QFrame.Plain)
         self.line_6.setLineWidth(2)
         self.line_6.setFrameShape(QtGui.QFrame.VLine)
         self.line_6.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_6.setObjectName(_fromUtf8("line_6"))
         self.line_4 = QtGui.QFrame(self.groupBox)
-        self.line_4.setGeometry(QtCore.QRect(320, 380, 20, 31))
+        self.line_4.setGeometry(QtCore.QRect(320, 360, 20, 31))
         self.line_4.setFrameShadow(QtGui.QFrame.Plain)
         self.line_4.setLineWidth(2)
         self.line_4.setFrameShape(QtGui.QFrame.VLine)
         self.line_4.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_4.setObjectName(_fromUtf8("line_4"))
         self.pushButton_11 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_11.setGeometry(QtCore.QRect(90, 410, 481, 61))
+        self.pushButton_11.setGeometry(QtCore.QRect(90, 390, 481, 61))
         self.pushButton_11.setStyleSheet(_fromUtf8("color: rgb(170, 0,0);\n"
-"font: 14pt \"MS Shell Dlg 2\";\n"
+"font: 75 18pt \"Times New Roman\";\n"
 ""))
         self.pushButton_11.setObjectName(_fromUtf8("pushButton_11"))
         self.line_3 = QtGui.QFrame(self.groupBox)
-        self.line_3.setGeometry(QtCore.QRect(160, 290, 20, 41))
+        self.line_3.setGeometry(QtCore.QRect(160, 270, 20, 41))
         self.line_3.setFrameShadow(QtGui.QFrame.Plain)
         self.line_3.setLineWidth(2)
         self.line_3.setFrameShape(QtGui.QFrame.VLine)
         self.line_3.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_3.setObjectName(_fromUtf8("line_3"))
         self.pushButton_12 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_12.setGeometry(QtCore.QRect(90, 500, 481, 61))
+        self.pushButton_12.setGeometry(QtCore.QRect(90, 480, 481, 61))
         self.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(170,0,0);\n"
-"font: 14pt \"MS Shell Dlg 2\";\n"
+"font: 75 18pt \"Times New Roman\";\n"
 ""))
         self.pushButton_12.setObjectName(_fromUtf8("pushButton_12"))
         self.line_2 = QtGui.QFrame(self.groupBox)
-        self.line_2.setGeometry(QtCore.QRect(160, 200, 20, 41))
+        self.line_2.setGeometry(QtCore.QRect(160, 180, 20, 41))
         self.line_2.setMaximumSize(QtCore.QSize(20, 16777215))
         self.line_2.setStyleSheet(_fromUtf8(""))
         self.line_2.setFrameShadow(QtGui.QFrame.Plain)
@@ -87,34 +87,34 @@ class Ui_ProcessFlow(object):
         self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_2.setObjectName(_fromUtf8("line_2"))
         self.line = QtGui.QFrame(self.groupBox)
-        self.line.setGeometry(QtCore.QRect(440, 200, 21, 131))
+        self.line.setGeometry(QtCore.QRect(440, 180, 21, 131))
         self.line.setFrameShadow(QtGui.QFrame.Plain)
         self.line.setLineWidth(2)
         self.line.setFrameShape(QtGui.QFrame.VLine)
         self.line.setFrameShadow(QtGui.QFrame.Sunken)
         self.line.setObjectName(_fromUtf8("line"))
         self.pushButton_13 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_13.setGeometry(QtCore.QRect(90, 590, 481, 51))
+        self.pushButton_13.setGeometry(QtCore.QRect(90, 570, 481, 51))
         self.pushButton_13.setStyleSheet(_fromUtf8("color: rgb(170, 0,0);\n"
-"font: 14pt \"MS Shell Dlg 2\";\n"
+"font: 75 18pt \"Times New Roman\";\n"
 ""))
         self.pushButton_13.setObjectName(_fromUtf8("pushButton_13"))
         self.line_5 = QtGui.QFrame(self.groupBox)
-        self.line_5.setGeometry(QtCore.QRect(320, 470, 20, 31))
+        self.line_5.setGeometry(QtCore.QRect(320, 450, 20, 31))
         self.line_5.setFrameShadow(QtGui.QFrame.Plain)
         self.line_5.setLineWidth(2)
         self.line_5.setFrameShape(QtGui.QFrame.VLine)
         self.line_5.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_5.setObjectName(_fromUtf8("line_5"))
         self.pushButton_9 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_9.setGeometry(QtCore.QRect(90, 240, 201, 51))
+        self.pushButton_9.setGeometry(QtCore.QRect(90, 220, 201, 51))
         self.pushButton_9.setStyleSheet(_fromUtf8("color: rgb(0, 170, 255);\n"
-"font: 14pt \"MS Shell Dlg 2\";\n"
+"font: 75 18pt \"Times New Roman\";\n"
 "\n"
 ""))
         self.pushButton_9.setObjectName(_fromUtf8("pushButton_9"))
         self.pushButton_8 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_8.setGeometry(QtCore.QRect(90, 140, 481, 61))
+        self.pushButton_8.setGeometry(QtCore.QRect(90, 120, 481, 61))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(170, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -172,7 +172,7 @@ class Ui_ProcessFlow(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         self.pushButton_8.setPalette(palette)
         self.pushButton_8.setStyleSheet(_fromUtf8("color: rgb(170, 0, 0);\n"
-"font: 14pt \"MS Shell Dlg 2\";\n"
+"font: 75 18pt \"Times New Roman\";\n"
 "\n"
 ""))
         self.pushButton_8.setAutoDefault(True)
@@ -180,58 +180,58 @@ class Ui_ProcessFlow(object):
         self.pushButton_8.setFlat(False)
         self.pushButton_8.setObjectName(_fromUtf8("pushButton_8"))
         self.line_7 = QtGui.QFrame(self.groupBox)
-        self.line_7.setGeometry(QtCore.QRect(320, 640, 21, 31))
+        self.line_7.setGeometry(QtCore.QRect(320, 620, 21, 31))
         self.line_7.setFrameShadow(QtGui.QFrame.Plain)
         self.line_7.setLineWidth(2)
         self.line_7.setFrameShape(QtGui.QFrame.VLine)
         self.line_7.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_7.setObjectName(_fromUtf8("line_7"))
         self.pushButton_2 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_2.setGeometry(QtCore.QRect(90, 70, 201, 41))
+        self.pushButton_2.setGeometry(QtCore.QRect(90, 50, 201, 41))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("MS Shell Dlg 2"))
-        font.setPointSize(14)
+        font.setFamily(_fromUtf8("Times New Roman"))
+        font.setPointSize(18)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(50)
+        font.setWeight(9)
         self.pushButton_2.setFont(font)
         self.pushButton_2.setStyleSheet(_fromUtf8("color: rgb(170, 0, 0);\n"
-"font: 14pt \"MS Shell Dlg 2\";\n"
+"font: 75 18pt \"Times New Roman\";\n"
 "\n"
 ""))
         self.pushButton_2.setIconSize(QtCore.QSize(18, 16))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.pushButton_3 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_3.setGeometry(QtCore.QRect(330, 60, 241, 51))
+        self.pushButton_3.setGeometry(QtCore.QRect(330, 40, 241, 51))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("MS Shell Dlg 2"))
-        font.setPointSize(14)
+        font.setFamily(_fromUtf8("Times New Roman"))
+        font.setPointSize(18)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(50)
+        font.setWeight(9)
         self.pushButton_3.setFont(font)
         self.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(170, 0, 0);\n"
-"font: 14pt \"MS Shell Dlg 2\";\n"
+"font: 75 18pt \"Times New Roman\";\n"
 ""))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.line_8 = QtGui.QFrame(self.groupBox)
-        self.line_8.setGeometry(QtCore.QRect(160, 110, 20, 31))
+        self.line_8.setGeometry(QtCore.QRect(160, 90, 20, 31))
         self.line_8.setFrameShadow(QtGui.QFrame.Plain)
         self.line_8.setLineWidth(2)
         self.line_8.setFrameShape(QtGui.QFrame.VLine)
         self.line_8.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_8.setObjectName(_fromUtf8("line_8"))
         self.line_9 = QtGui.QFrame(self.groupBox)
-        self.line_9.setGeometry(QtCore.QRect(440, 110, 20, 31))
+        self.line_9.setGeometry(QtCore.QRect(440, 90, 20, 31))
         self.line_9.setFrameShadow(QtGui.QFrame.Plain)
         self.line_9.setLineWidth(2)
         self.line_9.setFrameShape(QtGui.QFrame.VLine)
         self.line_9.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_9.setObjectName(_fromUtf8("line_9"))
         self.pushButton = QtGui.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(90, 670, 481, 51))
+        self.pushButton.setGeometry(QtCore.QRect(90, 650, 481, 51))
         self.pushButton.setStyleSheet(_fromUtf8("color: rgb(170, 0,0);\n"
-"font: 14pt \"MS Shell Dlg 2\";\n"
+"font: 75 18pt \"Times New Roman\";\n"
 ""))
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.label = QtGui.QLabel(ProcessFlow)
@@ -243,17 +243,17 @@ class Ui_ProcessFlow(object):
         self.label_2.setText(_fromUtf8(""))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.label_3 = QtGui.QLabel(ProcessFlow)
-        self.label_3.setGeometry(QtCore.QRect(430, 9, 101, 31))
+        self.label_3.setGeometry(QtCore.QRect(450, 10, 101, 31))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("MS Shell Dlg 2"))
+        font.setFamily(_fromUtf8("Times New Roman"))
         font.setPointSize(26)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(50)
+        font.setWeight(9)
         self.label_3.setFont(font)
         self.label_3.setAutoFillBackground(False)
         self.label_3.setStyleSheet(_fromUtf8("color: rgb(255, 85, 0);\n"
-"font: 26pt \"MS Shell Dlg 2\";"))
+"font: 75 26pt \"Times New Roman\";"))
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.pushButton_4 = QtGui.QPushButton(ProcessFlow)
         self.pushButton_4.setEnabled(True)
@@ -281,7 +281,7 @@ class Ui_ProcessFlow(object):
         QtCore.QMetaObject.connectSlotsByName(ProcessFlow)
 
     def retranslateUi(self, ProcessFlow):
-        ProcessFlow.setWindowTitle(_translate("ProcessFlow", "Trivim-Process Flow", None))
+        ProcessFlow.setWindowTitle(_translate("ProcessFlow", "Trivim", None))
         self.pushButton_10.setText(_translate("ProcessFlow", "Point Cloud Generation", None))
         self.pushButton_11.setText(_translate("ProcessFlow", "Image Segmentation", None))
         self.pushButton_12.setText(_translate("ProcessFlow", "Height Extraction", None))
