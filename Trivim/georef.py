@@ -2,6 +2,16 @@ import os
 import numpy as np
 import re
 import transformations as trans
+def getGroundCoord(grCoordFilePath,order):
+    f=open(grCoordFilePath,'r')
+    lines = f.readlines()
+    grCoords=[lines[int(i)+1] for i in order]
+##    print grCoords
+    grCoordsPath="GroundCoordinates.txt"
+    with open(grCoordsPath,'w') as grCoordinates:
+        for li in grCoords:
+            grCoordinates.write(li)
+    return True
 def readply(ply,skip):
     data = np.genfromtxt(ply,skip_header=skip, usecols=(0,1,2))
     data1 = np.matrix(data,dtype=np.float64, copy=False)
@@ -35,11 +45,13 @@ def writeply(header,grCoords,trfile):
         np.savetxt(output,grCoords,fmt="%s")
     return True
 
-def georef(ply,camCoords,camGrCoords,output):
+def georef(ply,camCoords,output):
+    print "Inside georef",os.getcwd()
     header=""
     camImgCoords,head1 =  readply(camCoords,0)
     print "camImgCoords", camImgCoords
-    camGrCoords,head2 = readply(camGrCoords,1)
+    grCord = np.genfromtxt("GroundCoordinates.txt", usecols=(0,1,2))
+    camGrCoords = np.matrix(grCord,dtype=np.float64, copy=False)
     print "camGrCoords", camGrCoords
     mdlCoords,header = readply(ply,13)
     print "mdlCoords", mdlCoords
@@ -86,21 +98,23 @@ def getOrder(outPath):
 def getCam(pointdir):
     bundir=os.path.join(pointdir,"bundle")
     os.chdir(bundir)
-    bundlefile= open("bundle.out",'r')
+##    bundlefile= open("bundle.out",'r')
     
     i=0;
     numcam=0;
     order=getOrder("out")
+    getGroundCoord(r"..\..\coordinates.txt",order)
     print order 
-    for lines in bundlefile:
-        if i<2:
-            totalnumcam=lines.split(" ");
-            global numcam
-            if i==1:
-                numcam=int(totalnumcam[0]);
-            i=i+1;
-        else:
-            break;
+##    for lines in bundlefile:
+##        if i<2:
+##            totalnumcam=lines.split(" ");
+##            global numcam
+##            if i==1:
+##                numcam=int(totalnumcam[0]);
+##            i=i+1;
+##        else:
+##            break;
+    numcam=len(order)
     i=0;
     j=0;
 
@@ -113,6 +127,7 @@ def getCam(pointdir):
     print "output"
     for item in f:
         print [item]
+    print item
     CamCoords= str(item)  
 ##    CamCoords= "points0"+str(numcam)+".ply"
     plyfile=open(CamCoords,'r')
@@ -125,23 +140,23 @@ def getCam(pointdir):
             if i<numcam:
                 if i%2==0:
                     content=lines.split(" ")
-                    ##print content
-                    print "try"
+##                    print content
+##                    print "try"
                     camCoordFile.write(content[0]+"\t"+content[1]+"\t"+content[2]+"\t"+order[j]+"\n")
                     j=j+1;
-        ##        else:
-        ##            print "reading odd line"
+##                else:
+##                    print "reading odd line"
                 i=i+1;
             else:
                 break;
-        bundlefile.close()
+##        bundlefile.close()
         plyfile.close()
     return os.path.join(bundir,outpath)
     
 def run(pointdir,camGrCoords,output):
     CamCoordsfile= getCam(pointdir)
     ply = os.path.join(pointdir,"pmvs","models",r"pmvs_options.txt.ply")
-    georef(ply,CamCoordsfile,camGrCoords,output)
+    georef(ply,CamCoordsfile,output)
 
 
 
