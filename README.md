@@ -6,4 +6,6 @@ Technical Advisors: Dr. Y.V.N.Krishnamurthy, Mr. P.L.N. Raju, Ms. Shefali Agrawa
 
 Team: Dr. Poonam S Tiwari, Dr. Hina Pande, Mr. S. Raghavendra, Mr. K. Shiva Reddy,Mr. Mayank Sharma, BITS Interns (2013,2014), Ms. Shweta Beniwal
 
+Test & Evaluation Team: Ashutosh Bhardwaj, Bhaskar Nikam, Kamal Pandey, Kshama Gupta, Prasun Kumar Gupta
+
 © IIRS, 2014
