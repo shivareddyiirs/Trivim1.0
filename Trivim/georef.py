@@ -95,7 +95,7 @@ def getOrder(outPath):
     
     
 
-def getCam(pointdir):
+def getCam(pointdir,camGrCoords):
     bundir=os.path.join(pointdir,"bundle")
     os.chdir(bundir)
 ##    bundlefile= open("bundle.out",'r')
@@ -103,7 +103,7 @@ def getCam(pointdir):
     i=0;
     numcam=0;
     order=getOrder("out")
-    getGroundCoord(r"..\..\coordinates.txt",order)
+    getGroundCoord(camGrCoords,order)
     print order 
 ##    for lines in bundlefile:
 ##        if i<2:
@@ -154,7 +154,7 @@ def getCam(pointdir):
     return os.path.join(bundir,outpath)
     
 def run(pointdir,camGrCoords,output):
-    CamCoordsfile= getCam(pointdir)
+    CamCoordsfile= getCam(pointdir,camGrCoords)
     ply = os.path.join(pointdir,"pmvs","models",r"pmvs_options.txt.ply")
     georef(ply,CamCoordsfile,output)
 
