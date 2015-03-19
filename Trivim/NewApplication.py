@@ -75,7 +75,6 @@ seg_param=seg_n_mask1.Ui_Dialog()
 loadKML= LoadKML.Ui_Dialog()
 segtest= mask.Ui_Dialog()
 
-
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -120,23 +119,23 @@ def enableButtonsLoad():
         ui.pushButton_9.setEnabled(True)
         #ui.pushButton_8.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
         if  status >= 2:
-            ui.pushButton_8.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
+            ui.pushButton_8.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);"))
             ui.pushButton_9.setEnabled(True)
-            ui.pushButton_9.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
+            ui.pushButton_9.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);"))
             ui.pushButton_10.setEnabled (True)
-            ui.pushButton_10.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
+            ui.pushButton_10.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);"))
             if status >=3:
                 ui.pushButton_11.setEnabled(True)
-                ui.pushButton_11.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
+                ui.pushButton_11.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);"))
                 if status >= 4 :
                     ui.pushButton_12.setEnabled(True)
-                    ui.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
+                    ui.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);"))
                     if status >=5:
                         ui.pushButton_13.setEnabled(True)
-                        ui.pushButton_13.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
+                        ui.pushButton_13.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);"))
                         if status >= 6:
                             ui.pushButton.setEnabled(True)
-                            ui.pushButton.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
+                            ui.pushButton.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);"))
 def enableButtons():
     global status
     print "status is", status
@@ -197,7 +196,7 @@ def newProjClicked():
                 print("already exist")
             enableButtons()
 ##            ui.pushButton_8.setEnabled(True)
-            ui.pushButton_2.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+            ui.pushButton_2.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
         else:
             print "Project Not Created"
         return True
@@ -219,7 +218,7 @@ def loadProjClicked():
             cProjFile.close()
             global projPath
             projPath=current_project
-            ui.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+            ui.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
             try:
                 fread= open(os.path.join(projPath,"status.txt"),'r')
                 global status
@@ -325,7 +324,7 @@ def OpenPointCloudHeight():
     path2 = str(Height_param.plainTextEdit.toPlainText())
     os.chdir(wrk_drr)
     os.system(os.path.join(wrk_drr,r"resources/CloudCompare/CloudCompare.exe")+ " "+path2)
-    Height_param.pushButton_2.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
+    Height_param.pushButton_2.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
     return True
 def guiCall():
     print "gui"
@@ -420,7 +419,7 @@ def generatePointCloudClicked():
             RunPMVS.run(a)
 ##            thread.start_new_thread( RunPMVS.run,(a,) )
         print "step 1 ends"
-        Point_param.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
+        Point_param.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
         Point_param.pushButton.setEnabled(True)
         return True
       
@@ -433,7 +432,7 @@ def georeference():
             else :
                 cooradd=browseCoordinates()
                 georef.run(pointcloudpath,cooradd,os.path.join(pointcloudpath,"georeffile.txt"))
-        Point_param.pushButton.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
+        Point_param.pushButton.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
         return True
     
     
@@ -480,8 +479,9 @@ def calculateParameterClicked():
 
 def OnCalcNumPhotos():
         f=open(os.path.join(wrk_drr,r'camera_calibration\calib_temp.txt'),'r')
-        numerator=int(field_param.plainTextEdit.toPlainText())
-        denominator=int(field_param.plainTextEdit_2.toPlainText())
+##        numerator=int(field_param.plainTextEdit.toPlainText())
+##        denominator=int(field_param.plainTextEdit_2.toPlainText())
+        
         for i in range(2):
             a=f.readline()
         try:
@@ -500,10 +500,12 @@ def OnCalcNumPhotos():
         except:
             print("provide focal length")
             #win32api.MessageBox("Focal length could not be obtained. Make sure to calculate or load camera parameters before proceeding further.")
-        if int(field_param.plainTextEdit.toPlainText())==0 or int(field_param.plainTextEdit_2.toPlainText())==0:
-            #win32api.MessageBox('Path Length and Distance from building should be positive','Error')
-            numerator=  (float(field_param.plainTextEdit.toPlainText())*focalLength)/( ccd*float(field_param.plainTextEdit_2.toPlainText()) )
-            denominator=(1-float(field_param.comboBox.currentText())/100)
+        numerator=  (float(field_param.plainTextEdit.toPlainText())*focalLength)/( ccd*float(field_param.plainTextEdit_2.toPlainText()) )
+        denominator=(1-float(field_param.comboBox.currentText())/100)
+##        if int(field_param.plainTextEdit.toPlainText())==0 or int(field_param.plainTextEdit_2.toPlainText())==0:
+##            #win32api.MessageBox('Path Length and Distance from building should be positive','Error')
+##            numerator=  (float(field_param.plainTextEdit.toPlainText())*focalLength)/( ccd*float(field_param.plainTextEdit_2.toPlainText()) )
+##            denominator=(1-float(field_param.comboBox.currentText())/100)
         if (numerator-1)/denominator >= 0:
             number=float( (numerator-1)/denominator+1 )
             field_param.plainTextEdit_5.setPlainText( str(int(number)) )
@@ -514,6 +516,7 @@ def OnCalcNumPhotos():
             field_param.plainTextEdit_6.setPlainText( str(hours)+"h:"+str(minutes)+"m:"+str(seconds)+"s" )
         else:
             field_param.plainTextEdit_5.setPlainText(str(1))
+
         
 def RepresentsInt(s):
         try: 
@@ -617,7 +620,7 @@ def loadKMLClicked():
     call.exec_()
     if call.exec_()==1:
         threeD.pushButton_6.setEnabled(True)
-        threeD.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+        threeD.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
     return True
     
     
@@ -662,7 +665,7 @@ def onExtractHeight():
     b=[heightDir,a]
     print 'callin utm_height'
     Utm_height.run(b)
-    Height_param.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
+    Height_param.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
     return True
 
 def footProcessClicked():
@@ -762,7 +765,7 @@ def constructBuildingClicked():
     print "\n\n\nEntering values in the database.. Please Wait\n"
     database_enter.run()
     print "\n All values have been added please move to the query section"
-    threeD.pushButton_6.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+    threeD.pushButton_6.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
     return True
 
 def visGeoClicked():
@@ -776,7 +779,7 @@ def visGeoClicked():
         if os.path.isdir(filename):
             os.startfile(os.path.join(filename,'doc.kml'))
     os.startfile("Placemark.kml")
-    threeD.pushButton_8.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+    threeD.pushButton_8.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
     return True
 def cameraCalibClicked():
     call=QtGui.QDialog()
@@ -797,7 +800,7 @@ def cameraCalibClicked():
         global status
         status = 2
         enableButtons()
-        ui.pushButton_8.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+        ui.pushButton_8.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
 
 def fieldPlanningClicked():
             call=QtGui.QDialog()
@@ -806,11 +809,11 @@ def fieldPlanningClicked():
             field_param.comboBox.addItem('70')
             field_param.comboBox.addItem('80')
             field_param.comboBox.addItem('90')
-            field_param.comboBox.addItem('100')
+            field_param.comboBox.addItem('99')
             call.connect(field_param.pushButton,QtCore.SIGNAL("clicked()"),OnCalcNumPhotos)
             call.exec_()
             if call.result()==1:
-                ui.pushButton_9.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+                ui.pushButton_9.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
             return True
         
 def threedModelClicked():
@@ -827,7 +830,7 @@ def threedModelClicked():
                 with open(os.path.join(projPath,'status.txt'),'w')as f :
                     f.write('%d' % status)
                 enableButtons()          
-                ui.pushButton_13.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+                ui.pushButton_13.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
             return True
 def onSaveQueryResults():
             root = Tk()
@@ -947,7 +950,7 @@ def dQueryClicked():
                 with open(os.path.join(projPath,'status.txt'),'w')as f :
                     f.write('%d' % status)
                 enableButtons()
-                ui.pushButton.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+                ui.pushButton.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
             return True
             
 def heightExtractionClicked():
@@ -966,7 +969,7 @@ def heightExtractionClicked():
                 enableButtons()
                 with open(os.path.join(projPath,'status.txt'),'w')as f :
                     f.write('%d' % status)
-                ui.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+                ui.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
             return True
 def sandMClicked():
             call=QtGui.QDialog()
@@ -992,14 +995,15 @@ def sandMClicked():
                 with open(os.path.join(projPath,'status.txt'),'w')as f :
                     f.write('%d' % status)
                 enableButtons()
-                ui.pushButton_11.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+                ui.pushButton_11.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
             return True
             
 def pointCloudClicked():
             call=QtGui.QDialog()
             Point_param.setupUi(call)
+            #Point_param.pushButton.setEnabled(True)
             call.connect(Point_param.pushButton_2,QtCore.SIGNAL("clicked()"),browseClickedPointCloud)
-            Point_param.pushButton_3.setEnabled(True)
+            #Point_param.pushButton_3.setEnabled(True)
             call.connect(Point_param.pushButton_3,QtCore.SIGNAL("clicked()"),generatePointCloudClicked)
             call.connect(Point_param.pushButton,QtCore.SIGNAL("clicked()"),georeference)
             
@@ -1012,7 +1016,7 @@ def pointCloudClicked():
                 with open(os.path.join(projPath,'status.txt'),'w')as f :
                     f.write('%d' % status)
                 enableButtons()
-                ui.pushButton_10.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
+                ui.pushButton_10.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);"))
             return True
 def helpClicked():
 
