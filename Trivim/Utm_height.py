@@ -49,7 +49,7 @@ def run(a):
                 while c<count-1:
                     y1=float(n[c])
                     y2=float(n[c+1])
-                    c=c+2
+                    c=c+1
                     e=math.sqrt(  (y2-y1)**2  )
                     d=(str(e))
                     outp.write(d)
