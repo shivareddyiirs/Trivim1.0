@@ -329,7 +329,7 @@ def OpenPointCloudHeight():
     str1 = r'\input'
     path2 = str(Height_param.plainTextEdit.toPlainText())
     os.chdir(wrk_drr)
-    os.system(os.path.join(wrk_drr,r"resources/CloudCompare/CloudCompare.exe")+ " "+path2)
+    os.system('"'+ os.path.join(wrk_drr,r"resources/CloudCompare/CloudCompare.exe")+ '" '+path2)
     Height_param.pushButton_2.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
     return True
 def guiCall():
