@@ -55,32 +55,4 @@ def run(a):
                     outp.write(d)
                     if c<count-1:
                         outp.write('\t')
-               # kmltoLocate(l,m)
-
-def kmltoLocate(l,m):
-            xc=l[0];
-            yc=m[0];
-            xcoord=xc.replace("-","");
-            ycoord=yc.replace("-","");
-            print xcoord
-            print ycoord
-            getaddress=open('C:/3d-Model/bin/curr_proj.txt','r')
-            for lines in getaddress:
-                directorypath=lines
-            os.chdir(directorypath)
-            getaddress.close()
-            zonefile=open('zone.txt','r')
-            for lines in zonefile:
-                zone=lines
-            zonefile.close()
-            print zone
-            (lat,longt)= con.UTMtoLL(23,float(xc),float(yc),zone)
-            kml_lat=str(lat).replace("-","")
-            kml_long=str(longt).replace("-","")
-            print kml_lat
-            print kml_long
-            kml = simplekml.Kml()
-            kml.newpoint(name="Draw your object from here", coords=[(kml_lat,kml_long)])
-            savingpath=directorypath+"\\\\"+"locate"
-            os.chdir(savingpath)
-            kml.save("locate.kml")     
+     
