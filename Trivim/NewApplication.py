@@ -833,13 +833,6 @@ def visGeoClicked():
     print dirPathVis
     os.chdir(dirPathVis)
     files=os.listdir(dirPathVis)
-    for filename in files:
-        print filename
-        base_file, ext = os.path.splitext(filename)
-        if ext == ".zip":
-            os.rename(filename, base_file + ".kmz")
-##        if os.path.isdir(filename):
-##            os.startfile(os.path.join(filename,'doc.kml'))
     newfiles= os.listdir(dirPathVis)
     for filename in newfiles:
         print filename
