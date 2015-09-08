@@ -6,11 +6,12 @@ import UTM as con
 
 projPath=""
 
-def makezip(outputPath):
+def makekmz(outputPath):
     path = os.getcwd()
     print path
     shutil.make_archive(outputPath, "zip", outputPath)
     print "Zip created!"
+    os.rename(outputPath+".zip",outputPath+".kmz")
 
 
 def makeKML(path,outputpath,imageName,height,hkml,a,b,filename,inputPath):
@@ -130,7 +131,7 @@ def makeKML(path,outputpath,imageName,height,hkml,a,b,filename,inputPath):
     f.write(str_final)
     f.close()
     print "Great! KML file generated! Please check the local directory."
-    makezip(outputPath);
+    makekmz(outputPath);
 
 
 

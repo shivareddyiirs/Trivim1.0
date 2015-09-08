@@ -816,17 +816,14 @@ def constructBuildingClicked():
                     countJPG=countJPG+1;
                     outputFileName=files_build.split(".")[0]
                     print "inside if jpg","calling testpycollada",list_ht[countJPG]                    
-                    testpycollada.makeKML(os.path.join(inputPath,filename),os.path.join(outputPath,outputFileName) ,files_build,list_ht[countJPG],hght,x,y,filename,inputPath);
-                    
-                    
-                    
+                    testpycollada.makeKML(os.path.join(inputPath,filename),os.path.join(outputPath,outputFileName) ,files_build,list_ht[countJPG],hght,x,y,filename,inputPath);            
                     hght=hght+float(list_ht[countJPG])
                     print "height of floor is",outputFileName,hght
     threeD.pushButton_8.setEnabled(True)
     addPlacemark_new.main()
-    print "\n\n\nEntering values in the database.. Please Wait\n"
+    print "\n\n\nEntering values in the database..  Wait\n"
     database_enter.run()
-    print "\n All values have been added please move to the query section"
+    print "\n All values have been added  move to the query section"
     threeD.pushButton_6.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
     return True
 
@@ -838,8 +835,18 @@ def visGeoClicked():
     files=os.listdir(dirPathVis)
     for filename in files:
         print filename
-        if os.path.isdir(filename):
-            os.startfile(os.path.join(filename,'doc.kml'))
+        base_file, ext = os.path.splitext(filename)
+        if ext == ".zip":
+            os.rename(filename, base_file + ".kmz")
+##        if os.path.isdir(filename):
+##            os.startfile(os.path.join(filename,'doc.kml'))
+    newfiles= os.listdir(dirPathVis)
+    for filename in newfiles:
+        print filename
+        base_file, ext = os.path.splitext(filename)
+        if ext == ".kmz":
+            os.startfile(filename)     
+        
     os.startfile("Placemark.kml")
     threeD.pushButton_8.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
     return True
