@@ -692,7 +692,7 @@ def footProcessClicked():
 ##        tot_range=0
 ##        t_old=0.0
 ##        t_new=0.0
-        os.chdir(wrk_drr+'\\3d-modelling')
+        os.chdir(os.path.join (wrk_drr,'3d-modelling'))
 ##        line_count=0
         f= open("temp.txt","r")
         l= f.readline()
@@ -714,7 +714,6 @@ def footProcessClicked():
         
         x=os.listdir(l)
         iterator=len(x)
-        f
         print "iterator",iterator
         fw = open('temp.txt','w')
         for i in range(iterator):
@@ -724,19 +723,19 @@ def footProcessClicked():
                 if files.endswith(".kml"):
                     print "writing next build", x[i]
                     f_name=files
-                    os.chdir(wrk_drr+'\\3d-modelling')
+                    os.chdir(os.path.join(wrk_drr,'3d-modelling'))
                     
                     fw.write(l+'\\\\'+x[i]+'\n')
+                    fw.close()
                     
                     
                     print "calling Foot auto"
-                    subprocess.Popen(['python','foot_auto.py'])
+                    import foot_auto
+                    foot_auto.main()
                     print "foot auto called"
                 else:
                     print "file not writen"
 
-        fw.close()
-        print open('temp.txt','r').readlines()
 ##        foot_auto.main()
 
             #if(t_old<=t_new):

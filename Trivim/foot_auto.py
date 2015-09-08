@@ -118,14 +118,16 @@ def store(req_string,q,dr):
         #print "file successfully written "
         
 def main():
+    from os.path import expanduser
+    home =expanduser("~")
+    trivim_dir= open(os.path.join(home,"Trivim.txt")).readline()
+    print trivim_dir
+    os.chdir(os.path. join(trivim_dir,"3d-modelling"))             
     f=open("temp.txt",'r')
-    line_count=0
-    global check
-    check=0;
-    
+    line_count=0    
     for line in f.readlines():
         line_count=line_count+1
-        #print "printing line in main for loop"
+        print "printing line in main for loop"
         #print line
         if(line_count>0):
             l=line.replace("\n","")
@@ -134,13 +136,17 @@ def main():
             #print l
             os.chdir(l)
             num_dir=len(os.listdir(l))
+            print num_dir
             dir_list=os.listdir(l)
+            print dir_list
             #print "this is range in dir"
             #print range(num_dir)
             for i in range(num_dir):
                 if dir_list[i].endswith(".kml"):
                     x=find(i,l)
+                    print x
                     store(x,i,l)
+    f.close()
              
-    #print "program is finished"
+    print "program is finished"
         
