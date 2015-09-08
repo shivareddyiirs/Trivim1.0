@@ -9,9 +9,15 @@ projPath=""
 def makekmz(outputPath):
     path = os.getcwd()
     print path
-    shutil.make_archive(outputPath, "zip", outputPath)
+    try:
+        shutil.make_archive(outputPath, "zip", outputPath)
+    except:
+        print "can not make file"
     print "Zip created!"
-    os.rename(outputPath+".zip",outputPath+".kmz")
+    try:
+        os.rename(outputPath+".zip",outputPath+".kmz")
+    except:
+        print "file already exist"
 
 
 def makeKML(path,outputpath,imageName,height,hkml,a,b,filename,inputPath):
@@ -114,7 +120,7 @@ def makeKML(path,outputpath,imageName,height,hkml,a,b,filename,inputPath):
     str3 = '<Placemark>\n<name>Model</name><styleUrl>#default1</styleUrl>\n<Model id="model_1">\n<altitudeMode>relativeToGround</altitudeMode>\n<Location>\n'
     f.write(string)
     f.write(str1)
-    f.write(imageName)
+    f.write(imageName.split('.')[0])
     f.write(strx)
     f.write(str2)
     f.write(str3)
