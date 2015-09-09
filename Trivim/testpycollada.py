@@ -15,9 +15,16 @@ def makekmz(outputPath):
         print "can not make file"
     print "Zip created!"
     try:
-        os.rename(outputPath+".zip",outputPath+".kmz")
+        os.copyfile(outputPath+".zip",outputPath+".kmz")
     except:
-        print "file already exist"
+        print "overwriting"
+        try:
+            os.remove(outputPath+".kmz")
+            os.rename(outputPath+".zip",outputPath+".kmz")
+        except:
+            print "Failed"
+        
+        
 
 
 def makeKML(path,outputpath,imageName,height,hkml,a,b,filename,inputPath):
