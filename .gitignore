@@ -42,11 +42,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 # python compiled files
-.pyc
-*.pyc
-*.pyc
-Trivim/Database_query.pyc
-*.pyc
 *.pyc
 *.jpg
 *.dll
