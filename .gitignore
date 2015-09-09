@@ -45,7 +45,7 @@ Temporary Items
 *.jpg
 *.dll
 *.vert
-*.pyc
 *.frag
 *.exe
 *.jpg
+*.pyc
