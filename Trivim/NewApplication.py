@@ -586,19 +586,19 @@ def footprintExtractionClicked():
     os.startfile(googleEarthPath)
 
 
-def browseKMLClicked():
+def browseKMLClicked(building):
     dialog = QtGui.QFileDialog(None,"Choose KML File")
     dialog.setFileMode(QtGui.QFileDialog.ExistingFile)
     dialog.setDirectory(wrk_drr)
     dialog.setFilter('*.kml')
     dialog.exec_()
     kmlPath= dialog.selectedFiles()[0]
-    getName=str(kmlPath).split('/')
-    index=len(getName)-1
-    buildName=getName[index].replace('.kml',"")
-    testpath=os.path.join(projPath,"input")+"\\"+buildName
+    testpath=os.path.join(projPath,"input")+"\\"+building
     os.chdir(testpath)
-    shutil.copy(str(kmlPath),testpath)
+    try:
+        shutil.copyfile(str(kmlPath),building+".kml")
+    except:
+        print "copy failed"
     
     return True
 def browseCoordinates():
@@ -620,7 +620,7 @@ def loadKMLClicked():
     loadKML.setupUi(call,buildFolderCheck)
     build_no = 0
     for building in buildFolderCheck :
-        call.connect(loadKML.buttons[build_no],QtCore.SIGNAL("clicked()"),browseKMLClicked)
+        call.connect(loadKML.buttons[build_no],QtCore.SIGNAL("clicked()"),lambda:browseKMLClicked(building))
         build_no = build_no + 1
     call.exec_()
    # if call.exec_()==1:-----------------------error
