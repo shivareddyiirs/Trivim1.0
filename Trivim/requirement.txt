@@ -1,4 +1,0 @@
-numpy
-PyQT4
-PIL
-collada
