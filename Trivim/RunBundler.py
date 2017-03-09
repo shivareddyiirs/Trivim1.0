@@ -15,5 +15,3 @@ def run(a):
     manager.matchFeatures()
 
     manager.doBundleAdjustment()
-
-    manager.openResult()

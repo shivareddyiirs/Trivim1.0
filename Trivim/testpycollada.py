@@ -15,7 +15,7 @@ def makekmz(outputPath):
         print "can not make file"
     print "Zip created!"
     try:
-        os.copyfile(outputPath+".zip",outputPath+".kmz")
+        shutil.copy(outputPath+".zip",outputPath+".kmz")
     except:
         print "overwriting"
         try:

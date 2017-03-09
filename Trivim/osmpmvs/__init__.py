@@ -7,7 +7,7 @@ def getExecPath(dir, fileName):
     if sys.platform == "win32": fileName = "%s.exe" % fileName
     return os.path.join(dir, fileName)
 
-home = expanduser("~")
+home = expanduser("~").decode('utf8')
 path= open(os.path.join(home,"Trivim.txt"))
 distrPath = path.readline()
 projPath= open(os.path.join(distrPath,"curr_proj.txt"),'r').readline()

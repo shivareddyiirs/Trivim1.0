@@ -183,3 +183,6 @@ test-23
 NIKON D80-23.6
 NIKON D60-23.6
 RICOH GR-III Digital-5.76
+Iphone 5s-4.80
+Lenovo K50a40-5.5
+Sony DSC-HX200V-6.16

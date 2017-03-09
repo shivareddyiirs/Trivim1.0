@@ -2,6 +2,7 @@
 #from Trivim import Ui_MainWindow
 from Flowchart import Ui_ProcessFlow
 import os
+import urlparse
 import numpy as np
 from os.path import expanduser
 home = expanduser("~")
@@ -12,7 +13,8 @@ try:
 except:
     print "error"
 import georef
-
+import GeoImageCoor
+import transimage
 import transformations
 import foot_auto
 from PyQt4 import *
@@ -76,6 +78,7 @@ Database_param=Database_query.Ui_Dialog()
 seg_param=seg_n_mask1.Ui_Dialog()
 loadKML= LoadKML.Ui_Dialog()
 segtest= mask.Ui_Dialog()
+currentBuilding=""
 
 
 try:
@@ -96,23 +99,6 @@ coordPath=""
 testpath=""
 status= int(1)
 calib_flag= 0
-def unzip(path):
-    os.chdir(path)
-    filenames = []
-    totalLength=0
-    for files in os.listdir("."):
-        if files.endswith(".kmz"):
-            totalLength +=1
-    count = 0
-    for files in os.listdir("."):
-        if files.endswith(".kmz"):
-            fh = open(files,'rb')
-            z = zipfile.ZipFile(fh)
-            count += 1
-            for name in z.namelist():
-                outpath = path +'\\' + fh.name[:-4]
-                z.extract(name,outpath)
-            fh.close()
 def enableButtonsLoad():
     global status
     print "status is", status
@@ -133,8 +119,8 @@ def enableButtonsLoad():
                 ui.pushButton_11.setEnabled(True)
                 ui.pushButton_11.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
                 if status >= 4 :
-                    ui.pushButton_12.setEnabled(True)
-                    ui.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
+##                    ui.pushButton_12.setEnabled(False)
+##                    ui.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
                     if status >=5:
                         ui.pushButton_13.setEnabled(True)
                         ui.pushButton_13.setStyleSheet(_fromUtf8("color: rgb(0, 170,255);\n""font: 14pt \"Times New Roman\";"))
@@ -156,7 +142,7 @@ def enableButtons():
             if status >=3:
                 ui.pushButton_11.setEnabled(True)
                 if status >= 4 :
-                    ui.pushButton_12.setEnabled(True)
+                    #ui.pushButton_12.setEnabled(True)
                     if status >=5:
                         ui.pushButton_13.setEnabled(True)
                         if status >= 6:
@@ -195,7 +181,7 @@ def newProjClicked():
             try:
                 os.mkdir(projPath+"\\"+"input")
                 os.mkdir(projPath+"\\"+"output")
-                #os.mkdir(projPath+"\\"+"locate")
+                os.mkdir(projPath+"\\"+"Height")
                 
             except :
                 print("already exist")
@@ -214,6 +200,7 @@ def loadProjClicked():
         teste=dialog.exec_()
         if teste!=0:
             try:
+                global current_project
                 current_project = str(dialog.selectedFiles()[0])
             except:
                 print("no project choosen")
@@ -247,11 +234,26 @@ def browseClicked(): # browseClicked in chessboard
     dialog.exec_()
     global path_calib
     try:
-        path_calib=dialog.selectedFiles()[0]
+        path_calib= str(dialog.selectedFiles()[0])
         cameraCalib.plainTextEdit_3.setPlainText(path_calib)
     except:
         print "no image directory choosen"
         return False
+    os.chdir(path_calib)
+    fi_name= glob("*.JPG")
+    try:
+        graypath= os.path.join(projPath,"gry")
+        os.makedirs(graypath)
+        print "directory created"
+        for fi in fi_name:
+            print fi
+            img = Image.open(fi).convert("L")
+            print "image converted"
+            img.save(os.path.join(graypath,fi))
+            print "file saved"
+        path_calib = graypath
+    except:
+        print("Can not convert to gray")
     
 def checkGeotag():
         os.chdir(projPath)
@@ -274,42 +276,7 @@ def checkGeotag():
                     subprocess.call(['python','GeotagFrame.py'])
                     break;
             flag=flag+1
-##def browseClickSegNMask():
-##    dialog = QtGui.QFileDialog(None,"Select Image Directory")
-##    dialog.setFileMode(QtGui.QFileDialog.Directory)
-##    dialog.setOption(QtGui.QFileDialog.ShowDirsOnly)
-##    dialog.exec_()
-##    try:
-##        seg_param.plainTextEdit.setPlainText(dialog.selectedFiles()[0])
-##        path_image= str(seg_param.plainTextEdit.toPlainText())
-##    except:
-##        print "image directory not choosen"
-##        return False
-##        
-##    print "image path is",path_image
-##    newPhotoPath= os.path.join(wrk_drr,r"point_cloud/temp/")
-##    
-##    if not(os.path.isdir(path_image)):
-##        #win32api.MessageBox(0,"Invalid Path, Please choose Correct Directory","Warning")
-##        print("choose correct directory")
-##    else:
-##        p=os.listdir(newPhotoPath)
-##        for i in p:
-##            os.remove(newPhotoPath+i)
-##        f=os.listdir(path_image)
-##        for i in f:
-##            a=i.split('.')
-##            flag=0
-####            try:
-####                Image.open(os.path.join(path_image,i))
-####            except:
-####                flag=1
-####                print "can not open image"
-##            if (a[len(a)-1]=="jpg" or a[len(a)-1]=="JPG")and flag==0:
-##                shutil.copy(os.path.join(path_image,i),newPhotoPath)
-##                print "copying photo"
-##    print "end of seg browse"
-
+        return False
 
 def browseClickHeight():
     dialog = QtGui.QFileDialog(None,"Select PointCloud File")
@@ -324,19 +291,13 @@ def browseClickHeight():
     Height_param.plainTextEdit.setPlainText(path_point)
     Height_param.pushButton_2.setEnabled(True)
     return True
-
-def OpenPointCloudHeight():
-    str1 = r'\input'
-    path2 = str(Height_param.plainTextEdit.toPlainText())
-    os.chdir(wrk_drr)
-    os.system('"'+ os.path.join(wrk_drr,r"resources/CloudCompare/CloudCompare.exe")+ '" '+path2)
-    Height_param.pushButton_2.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
-    return True
 def guiCall():
     print "gui"
     GUI.main()
+    
     mask= np.genfromtxt(os.path.join(projPath,'mask.txt'),'float')
     print mask
+   
     main_directory= os.path.join(projPath,"input")
 ##        with open(os.path.join(projPath,'tempGUI.txt'))as datafile:
 ##            database= datafile.readlines()
@@ -344,14 +305,26 @@ def guiCall():
     with open(datafile,'r') as data :
         filename= data.readline()[:-1]
     print filename
-    seg.crop_image(seg_image,mask,datafile,filename,main_directory)   
+    seg.crop_image(seg_image,mask,datafile,filename,main_directory)
+    global image_file
+    print "image_file",image_file
+    x=os.path.splitext(os.path.basename(urlparse.urlsplit(image_file).path))
+    picname=x[0]
+    transimage.run(mask,filename,projPath,picname)
+    
+    heightDir=os.path.join(projPath,"Height")
+ 
+
+    Utm_height.run(heightDir,main_directory)
 
     
                                             
 def ShowImageSegNMask():
 
         global image_file
+        print "image_file",image_file
         image_file = str(seg_param.comboBox.currentText())
+        print "image_file",image_file
         label2 = seg_param.label_2
         pixmap = QPixmap(image_file);
         pixmap1 = pixmap.scaled(label2.size(),QtCore.Qt.KeepAspectRatio);
@@ -413,18 +386,18 @@ def generatePointCloudClicked():
         print "in point cloud before georeference"
 ##to run PMVS
         
-        bundlerOutputPath=os.path.join(projPath,"PointCloud")
-        print "bundlerOutputPath"
-        print bundlerOutputPath
-        
-        if not (os.path.isdir(bundlerOutputPath)):
-            print("enter correct path")
-           # win32api.MessageBox(0,'Invalid path. Enter the correct path','Warning')
-        else:
-            a=['--bundlerOutputPath='+bundlerOutputPath]
-            RunPMVS.run(a)
-##            thread.start_new_thread( RunPMVS.run,(a,) )
-        print "step 1 ends"
+##        bundlerOutputPath=os.path.join(projPath,"PointCloud")
+##        print "bundlerOutputPath"
+##        print bundlerOutputPath
+##        
+##        if not (os.path.isdir(bundlerOutputPath)):
+##            print("enter correct path")
+##           # win32api.MessageBox(0,'Invalid path. Enter the correct path','Warning')
+##        else:
+##            a=['--bundlerOutputPath='+bundlerOutputPath]
+##            RunPMVS.run(a)
+####            thread.start_new_thread( RunPMVS.run,(a,) )
+##        print "step 1 ends"
         Point_param.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
         Point_param.pushButton.setEnabled(True)
         return True
@@ -435,9 +408,11 @@ def georeference():
         with open(cooradd) as codad:
             if codad.readlines()[1].split(" ")[0] != "none" :
                 georef.run(pointcloudpath,cooradd,os.path.join(pointcloudpath,"georeffile.txt"))
+                GeoImageCoor.run(pointcloudpath,os.path.join(pointcloudpath,"georeffile.txt"))
             else :
                 cooradd=browseCoordinates()
                 georef.run(pointcloudpath,cooradd,os.path.join(pointcloudpath,"georeffile.txt"))
+                GeoImageCoor.run(pointcloudpath,os.path.join(pointcloudpath,"georeffile.txt"))
         Point_param.pushButton.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
         return True
     
@@ -586,17 +561,18 @@ def footprintExtractionClicked():
     os.startfile(googleEarthPath)
 
 
-def browseKMLClicked(building):
+def browseKMLClicked():
+    print currentBuilding
     dialog = QtGui.QFileDialog(None,"Choose KML File")
     dialog.setFileMode(QtGui.QFileDialog.ExistingFile)
     dialog.setDirectory(wrk_drr)
     dialog.setFilter('*.kml')
     dialog.exec_()
     kmlPath= dialog.selectedFiles()[0]
-    testpath=os.path.join(projPath,"input")+"\\"+building
+    testpath=os.path.join(projPath,"input")+"\\"+currentBuilding
     os.chdir(testpath)
     try:
-        shutil.copyfile(str(kmlPath),building+".kml")
+        shutil.copyfile(str(kmlPath),currentBuilding+".kml")
     except:
         print "copy failed"
     
@@ -620,8 +596,11 @@ def loadKMLClicked():
     loadKML.setupUi(call,buildFolderCheck)
     build_no = 0
     for building in buildFolderCheck :
-        call.connect(loadKML.buttons[build_no],QtCore.SIGNAL("clicked()"),lambda:browseKMLClicked(building))
+        global currentBuilding
+        currentBuilding = building
+        call.connect(loadKML.buttons[build_no],QtCore.SIGNAL("clicked()"),browseKMLClicked)
         build_no = build_no + 1
+        print "testing button linking",building
     call.exec_()
    # if call.exec_()==1:-----------------------error
     if call.result()==1:
@@ -630,34 +609,7 @@ def loadKMLClicked():
     return True
     
     
-##    label_1 = QtGui.QLabel(window)
-##    label_1.setGeometry(QtCore.QRect(40, 40, 141, 31))
-##    label_1.setObjectName(_fromUtf8("label1"))
-##    label_1.setText("Import KML For Bulding 1")
-   
-    #threeD.pushButton_2.setEnabled(False)
-##    global current
-##    dialog = QtGui.QFileDialog(None,"Choose KML File")
-##    dialog.setFileMode(QtGui.QFileDialog.ExistingFile)
-##    dialog.setFilter('*.kml')
-##    dialog.exec_()
-##    kmlPath= dialog.selectedFiles()[0]    
-##    dialog = QtGui.QFileDialog(None, "Choose Target Directory")
-##    dialog.setFileMode(QtGui.QFileDialog.Directory)
-##    dialog.setOption(QtGui.QFileDialog.ShowDirsOnly)
-##    dialog.exec_()
-##    copyPathproject = dialog.selectedFiles()[0]
-##    if os.path.isfile(kmlPath):
-##        if str(kmlPath).endswith(".kml"):
-##            shutil.copy(str(kmlPath),str(copyPathproject))
-##            #win32api.MessageBox(0,'Files copied to given location','Success')
-##        else:
-##            #win32api.MessageBox(0,'Invalid File Format','Error')
-##            print("invalid file format")
-##    else:
-##    
-##        win32api.MessageBox(0,'Invalid Directory','Error')
-##    threeD.pushButton_6.setEnabled(True)
+
 def onExtractHeight():
     dialog = QtGui.QFileDialog(None,"Select Directory")
     dialog.setFileMode(QtGui.QFileDialog.Directory)
@@ -685,33 +637,13 @@ def footProcessClicked():
         fw.close()
         flag=0
     else:
-##        box=win32api.MessageBox(0,'Please specify the correct folder','Warning')
-##        box.Destroy()
         flag=1
     if(flag!=1):
-##        tot_range=0
-##        t_old=0.0
-##        t_new=0.0
         os.chdir(os.path.join (wrk_drr,'3d-modelling'))
-##        line_count=0
         f= open("temp.txt","r")
         l= f.readline()
         f.close()
         print l
-##        for line in f:
-##                line_count=line_count+1
-##                if(line_count==1):
-##                    l=line
-##                    print "inside frame printing l"+l
-##                    x=os.listdir(l)
-##                    iterator=len(os.listdir(l))
-##                    for i in range(iterator):
-##                        for files in os.listdir(l+'\\\\'+x[i]):                 
-##                            if files.endswith(".kml"):
-##                                tot_range+=1
-##                    break
-  
-        
         x=os.listdir(l)
         iterator=len(x)
         print "iterator",iterator
@@ -735,11 +667,6 @@ def footProcessClicked():
                     print "foot auto called"
                 else:
                     print "file not writen"
-
-##        foot_auto.main()
-
-            #if(t_old<=t_new):
-                #print "Footprint Extraction Completed"
 
     return True
 
@@ -767,7 +694,6 @@ def constructBuildingClicked():
                 
                 with open("heights.txt",'r')as ht:
                     print "ht is",ht
-##                    build_ht=str(ht.readlines())
                     for lines in ht:
                         list_ht=lines.split("\t")
                     print "list_ht is",list_ht
@@ -783,22 +709,11 @@ def constructBuildingClicked():
                    
                     import numpy as np
                     import math
-                    import UTM as con
-##                    x1 =float(x[0])
-##                    y1 = float(y[0])
-##                    print "coord x",x1
-##                    print "coord y",y1
-##                 
-##                    np.savetxt('Outputcoordinates.txt', (x1,y1),fmt = '%.14f')
-##                   
-
+                    import UTM as con             
                     x= np.array(x,float)
                     y= np.array(y,float)
-                   
                     print "x coordinates is", x
                     print "y coordinates is", y
-                  
-                  
                     (z, x[0], y[0]) = con.LLtoUTM(23,x[0],y[0])
                     (z, x[1], y[1]) = con.LLtoUTM(23,x[1],y[1])
                     (z, x[2], y[2]) = con.LLtoUTM(23,x[2],y[2])
@@ -807,11 +722,6 @@ def constructBuildingClicked():
                     y=y-y[0]
                     print "x coordinates is", x
                     print "y coordinates is", y
-                
-                    #print(repr(z))
-                    #a = float(z)
-                
-                  
                 if files_build.endswith('.jpg'):
                     countJPG=countJPG+1;
                     outputFileName=files_build.split(".")[0]
@@ -910,10 +820,8 @@ def onSaveQueryResults():
                     print strings
                     for string in strings:
                         f.write( str(string) + "\n" )
-               # win32api.MessageBox(0,"Result stored in " + filename,"Success!")
             except:
                 print"file save failed, try again"
-               #win32api.MessageBox(0,"File save unsuccesful. Please try again.","Error")
             return True
 def onloadattributes():
             Database_param.listWidget.setEnabled(True)
@@ -959,16 +867,6 @@ def submitqueryclick():
             print result
         
             count=0
-            
-                
-                
-##            for row in result:
-##                print "row1", row
-##                count+=1
-##                
-##            Database_param.listWidget_2.addItem("Number of results " + " where "  + str(q) + " = " + str(count))
-##            print "counts ", count
-        
             for row in result:
                 count=0
                 print "length of row", len(row)
@@ -1015,24 +913,7 @@ def dQueryClicked():
                 ui.pushButton.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
             return True
             
-def heightExtractionClicked():
-            call=QtGui.QDialog()
-            #param=Height_Extraction.Ui_Dialog()
-            Height_param.setupUi(call)
-            call.connect(Height_param.pushButton,QtCore.SIGNAL("clicked()"),browseClickHeight)
-            call.connect(Height_param.pushButton_2,QtCore.SIGNAL("clicked()"),OpenPointCloudHeight)
-            call.connect(Height_param.pushButton_3,QtCore.SIGNAL("clicked()"), onExtractHeight)
-            call.exec_()
-            if call.result()  == 1:#check if okay pressed and update
-                global status
-                status = 5
-                with open(os.path.join(projPath,'status.txt'),'w')as f :
-                    f.write('%d' % status)
-                enableButtons()
-                with open(os.path.join(projPath,'status.txt'),'w')as f :
-                    f.write('%d' % status)
-                ui.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
-            return True
+
 def sandMClicked():
             call=QtGui.QDialog()
             
@@ -1053,7 +934,7 @@ def sandMClicked():
             call.exec_()
             if call.result()  == 1:#check if okay pressed and update
                 global status
-                status = 4
+                status = 5
                 with open(os.path.join(projPath,'status.txt'),'w')as f :
                     f.write('%d' % status)
                 enableButtons()
@@ -1099,7 +980,7 @@ ui.pushButton_8.setEnabled(False)
 ui.pushButton_9.setEnabled(False)
 ui.pushButton_13.setEnabled(False)
 ui.pushButton.setEnabled(False)
-ui.pushButton_12.setEnabled(False)
+##ui.pushButton_12.setEnabled(False)
 ui.pushButton_11.setEnabled(False)
 ui.pushButton_10.setEnabled(False)
 window.connect(ui.pushButton_2, QtCore.SIGNAL("clicked()"),newProjClicked)
@@ -1108,7 +989,6 @@ window.connect(ui.pushButton_8, QtCore.SIGNAL("clicked()"),cameraCalibClicked)
 window.connect(ui.pushButton_9, QtCore.SIGNAL("clicked()"),fieldPlanningClicked)    
 window.connect(ui.pushButton_13, QtCore.SIGNAL("clicked()"),threedModelClicked)    
 window.connect(ui.pushButton, QtCore.SIGNAL("clicked()"), dQueryClicked)  
-window.connect(ui.pushButton_12, QtCore.SIGNAL("clicked()"), heightExtractionClicked)
 window.connect(ui.pushButton_11, QtCore.SIGNAL("clicked()"), sandMClicked)    
 window.connect(ui.pushButton_10, QtCore.SIGNAL("clicked()"), pointCloudClicked)
 window.connect(ui.pushButton_4, QtCore.SIGNAL("clicked()"), helpClicked)

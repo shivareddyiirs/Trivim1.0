@@ -71,12 +71,12 @@ class Ui_ProcessFlow(object):
         self.line_3.setFrameShape(QtGui.QFrame.VLine)
         self.line_3.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_3.setObjectName(_fromUtf8("line_3"))
-        self.pushButton_12 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_12.setGeometry(QtCore.QRect(90, 480, 481, 61))
-        self.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(170,0,0);\n"
-"font: 75 18pt \"Times New Roman\";\n"
-""))
-        self.pushButton_12.setObjectName(_fromUtf8("pushButton_12"))
+##        self.pushButton_12 = QtGui.QPushButton(self.groupBox)
+##        self.pushButton_12.setGeometry(QtCore.QRect(90, 480, 481, 61))
+##        self.pushButton_12.setStyleSheet(_fromUtf8("color: rgb(170,0,0);\n"
+##"font: 75 18pt \"Times New Roman\";\n"
+##""))
+##        self.pushButton_12.setObjectName(_fromUtf8("pushButton_12"))
         self.line_2 = QtGui.QFrame(self.groupBox)
         self.line_2.setGeometry(QtCore.QRect(160, 180, 20, 41))
         self.line_2.setMaximumSize(QtCore.QSize(20, 16777215))
@@ -94,7 +94,7 @@ class Ui_ProcessFlow(object):
         self.line.setFrameShadow(QtGui.QFrame.Sunken)
         self.line.setObjectName(_fromUtf8("line"))
         self.pushButton_13 = QtGui.QPushButton(self.groupBox)
-        self.pushButton_13.setGeometry(QtCore.QRect(90, 570, 481, 51))
+        self.pushButton_13.setGeometry(QtCore.QRect(90, 480, 481, 61))
         self.pushButton_13.setStyleSheet(_fromUtf8("color: rgb(170, 0,0);\n"
 "font: 75 18pt \"Times New Roman\";\n"
 ""))
@@ -221,15 +221,15 @@ class Ui_ProcessFlow(object):
         self.line_8.setFrameShape(QtGui.QFrame.VLine)
         self.line_8.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_8.setObjectName(_fromUtf8("line_8"))
-        self.line_9 = QtGui.QFrame(self.groupBox)
-        self.line_9.setGeometry(QtCore.QRect(440, 90, 20, 31))
-        self.line_9.setFrameShadow(QtGui.QFrame.Plain)
-        self.line_9.setLineWidth(2)
-        self.line_9.setFrameShape(QtGui.QFrame.VLine)
-        self.line_9.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line_9.setObjectName(_fromUtf8("line_9"))
+##        self.line_9 = QtGui.QFrame(self.groupBox)
+##        self.line_9.setGeometry(QtCore.QRect(440, 90, 20, 31))
+##        self.line_9.setFrameShadow(QtGui.QFrame.Plain)
+##        self.line_9.setLineWidth(2)
+##        self.line_9.setFrameShape(QtGui.QFrame.VLine)
+##        self.line_9.setFrameShadow(QtGui.QFrame.Sunken)
+##        self.line_9.setObjectName(_fromUtf8("line_9"))
         self.pushButton = QtGui.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(90, 650, 481, 51))
+        self.pushButton.setGeometry(QtCore.QRect(90, 570, 481, 51))
         self.pushButton.setStyleSheet(_fromUtf8("color: rgb(170, 0,0);\n"
 "font: 75 18pt \"Times New Roman\";\n"
 ""))
@@ -283,8 +283,8 @@ class Ui_ProcessFlow(object):
     def retranslateUi(self, ProcessFlow):
         ProcessFlow.setWindowTitle(_translate("ProcessFlow", "Trivim", None))
         self.pushButton_10.setText(_translate("ProcessFlow", "Point Cloud Generation", None))
-        self.pushButton_11.setText(_translate("ProcessFlow", "Image Segmentation", None))
-        self.pushButton_12.setText(_translate("ProcessFlow", "Height Extraction", None))
+        self.pushButton_11.setText(_translate("ProcessFlow", "Building Texture Extraction", None))
+##        self.pushButton_12.setText(_translate("ProcessFlow", "Height Extraction", None))
         self.pushButton_13.setText(_translate("ProcessFlow", "3D-Model Generation", None))
         self.pushButton_9.setText(_translate("ProcessFlow", "Field Planning", None))
         self.pushButton_8.setText(_translate("ProcessFlow", "Camera Calibration", None))
