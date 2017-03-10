@@ -569,10 +569,11 @@ def browseKMLClicked():
     dialog.setFilter('*.kml')
     dialog.exec_()
     kmlPath= dialog.selectedFiles()[0]
-    testpath=os.path.join(projPath,"input")+"\\"+currentBuilding
+    building= os.path.basename(str(kmlPath)).split(".")[0]
+    testpath=os.path.join(projPath,"input")+"\\"+building
     os.chdir(testpath)
     try:
-        shutil.copyfile(str(kmlPath),currentBuilding+".kml")
+        shutil.copyfile(str(kmlPath),building+".kml")
     except:
         print "copy failed"
     
@@ -647,27 +648,23 @@ def footProcessClicked():
         x=os.listdir(l)
         iterator=len(x)
         print "iterator",iterator
-        fw = open('temp.txt','w')
         for i in range(iterator):
             
-            for files in os.listdir(l+'\\\\'+x[i]):
+            for files in os.listdir(os.path.join(l,x[i])):
                
                 if files.endswith(".kml"):
                     print "writing next build", x[i]
                     f_name=files
                     os.chdir(os.path.join(wrk_drr,'3d-modelling'))
-                    
+                    fw = open('temp.txt','w')
                     fw.write(l+'\\\\'+x[i]+'\n')
                     fw.close()
-                    
-                    
                     print "calling Foot auto"
                     import foot_auto
                     foot_auto.main()
                     print "foot auto called"
                 else:
                     print "file not writen"
-
     return True
 
                     
