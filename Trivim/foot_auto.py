@@ -83,8 +83,8 @@ def store(req_string,q,dr):
     print dx
     addr=dr+'\\'+dx[q]+'.txt'
     address=addr.replace(".kml","")
-    #print "This is the address in store"
-    #print address
+    print "This is the address in store"
+    print address
     f_w=open(address,'w')
     
     count1 = 0
@@ -115,7 +115,7 @@ def store(req_string,q,dr):
         p = x
         z = p+1
         count = count+1
-        #print "file successfully written "
+        print "file successfully written "
         
 def main():
     from os.path import expanduser
