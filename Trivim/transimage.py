@@ -82,7 +82,7 @@ def imagematrix(mask):
     #mask=[ 353.30087143,  578.34291393 , 131.28413087,  693.88923712]
 
     im1=np.asarray([[mask[3],mask[0]]])
-    im2=np.asarray([[mask[2],mask[1]]])            
+    im2=np.asarray([[mask[3],mask[1]]])            
   #  image_data1=add1(image_data2)
     print "first",im1.T
     print "second",im2.T
