@@ -2,7 +2,7 @@ import logging
 import sys, os, getopt, tempfile, subprocess
 import sqlite3
 import shutil
-
+import numpy as np
 from PIL import Image
 from PIL.ExifTags import TAGS
 
@@ -235,29 +235,31 @@ class OsmBundler():
         return exif
     
     def _calculateFocalDistance(self, photo, photoInfo, exif):
-        f=open(r'camera_calibration\calib_temp.txt','r')
-        for i in range(2):
-            a=f.readline()
-        b=a.split(' ')
-        ccd=float(b[3])
-        print "CCD : " + str(ccd)
-        for i in range(7):
-            a=f.readline()
-        b=a.split(' ')
-        focalLength=float(b[3])
-        f.close()
-        if 'FocalLength' in exif and 'ExifImageWidth' in exif and 'ExifImageHeight' in exif:
-            focalLength = float(exif['FocalLength'])
-            width = float(exif['ExifImageWidth'])
-            height = float(exif['ExifImageHeight'])
-            if width<height:
-                width = height
-            #get ccd
-            print "width : " + str(width)
-            print "focalLength : " + str(focalLength)
-            focalPixels = width * ( focalLength / ccd)
-            print "focalPixels : " + str(focalPixels)
-            print str(SCALE*focalPixels)
+##        f=open(r'camera_calibration\calib_temp.txt','r')
+##        for i in range(2):
+##            a=f.readline()
+##        b=a.split(' ')
+####        ccd=float(b[3])
+##        print "CCD : " + str(ccd)
+##        for i in range(7):
+##            a=f.readline()
+##        b=a.split(' ')
+##        focalLength=float(b[3])
+##        f.close()
+##        if 'FocalLength' in exif and 'ExifImageWidth' in exif and 'ExifImageHeight' in exif:
+##            focalLength = float(exif['FocalLength'])
+##            width = float(exif['ExifImageWidth'])
+##            height = float(exif['ExifImageHeight'])
+##            if width<height:
+##                width = height
+##            #get ccd
+##            print "width : " + str(width)
+##            print "focalLength : " + str(focalLength)
+##            focalPixels = width * ( focalLength / ccd)
+##            print "focalPixels : " + str(focalPixels)
+##            print str(SCALE*focalPixels)
+        # code added to remove dependency on taking ccd from the user.
+        focalPixels= getFocalPixel()
         self.bundlerListFile.write("%s.jpg 0 %s\n" % (photo,SCALE*focalPixels))
     
     def initMatchingEngine(self):
@@ -338,3 +340,9 @@ class OsmBundler():
 def getExecPath(dir, fileName):
     if sys.platform == "win32": fileName = "%s.exe" % fileName
     return os.path.join(dir, fileName)
+
+def getFocalPixel():
+    with open(r'camera_calibration\calib_temp.txt') as mat:
+        line =mat.readlines()[5]
+	ccd= line.strip('[').replace(']','').strip().split()[0]
+	return float(ccd)
