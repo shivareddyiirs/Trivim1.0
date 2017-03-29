@@ -91,7 +91,7 @@ class OsmBundler():
             self.workDir = os.path.join(f.read(),"PointCloud")
             if not os.path.isdir(self.workDir):
                 #shutil.rmtree(self.workDir)
-                os.mkdir(self.workDiopenResultr)
+                os.mkdir(self.workDir)
             logging.info("Working directory created: "+self.workDir)
         
         if not (os.path.isdir(self.photosArg) or os.path.isfile(self.photosArg)):
@@ -235,6 +235,29 @@ class OsmBundler():
         return exif
     
     def _calculateFocalDistance(self, photo, photoInfo, exif):
+##        f=open(r'camera_calibration\calib_temp.txt','r')
+##        for i in range(2):
+##            a=f.readline()
+##        b=a.split(' ')
+####        ccd=float(b[3])
+##        print "CCD : " + str(ccd)
+##        for i in range(7):
+##            a=f.readline()
+##        b=a.split(' ')
+##        focalLength=float(b[3])
+##        f.close()
+##        if 'FocalLength' in exif and 'ExifImageWidth' in exif and 'ExifImageHeight' in exif:
+##            focalLength = float(exif['FocalLength'])
+##            width = float(exif['ExifImageWidth'])
+##            height = float(exif['ExifImageHeight'])
+##            if width<height:
+##                width = height
+##            #get ccd
+##            print "width : " + str(width)
+##            print "focalLength : " + str(focalLength)
+##            focalPixels = width * ( focalLength / ccd)
+##            print "focalPixels : " + str(focalPixels)
+##            print str(SCALE*focalPixels)
         # code added to remove dependency on taking ccd from the user.
         focalPixels= getFocalPixel()
         self.bundlerListFile.write("%s.jpg 0 %s\n" % (photo,SCALE*focalPixels))
