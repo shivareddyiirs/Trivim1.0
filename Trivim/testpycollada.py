@@ -40,8 +40,8 @@ def makeKML(path,outputpath,imageName,height,hkml,a,b,filename,inputPath):
     mesh.assetInfo.upaxis = axis
     texture_image=os.path.join(path,imageName)
     shutil.copy(texture_image,outputpath)
-    print "this is image",texture_image
-    image = material.CImage("material_0_1_0-image", texture_image)
+    print "this is image"
+    image = material.CImage("material_0_1_0-image",imageName)
     surface = material.Surface("material_0_1_0-image-surface", image)
     sampler2d = material.Sampler2D("material_0_1_0-image-sampler", surface)
     map1 = material.Map(sampler2d, "UVSET0")
