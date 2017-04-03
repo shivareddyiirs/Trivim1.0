@@ -278,19 +278,6 @@ def checkGeotag():
             flag=flag+1
         return False
 
-def browseClickHeight():
-    dialog = QtGui.QFileDialog(None,"Select PointCloud File")
-    dialog.setDirectory(wrk_drr)
-    dialog.exec_()
-    path_point=""
-    try:
-        path_point=dialog.selectedFiles()[0]
-    except:
-        print "point cloud folder not choosen"
-        return False
-    Height_param.plainTextEdit.setPlainText(path_point)
-    Height_param.pushButton_2.setEnabled(True)
-    return True
 def guiCall():
     print "gui"
     GUI.main()
@@ -384,20 +371,7 @@ def generatePointCloudClicked():
             proj.write(projPath)
         RunBundler.run(a)
         print "in point cloud before georeference"
-##to run PMVS
-        
-##        bundlerOutputPath=os.path.join(projPath,"PointCloud")
-##        print "bundlerOutputPath"
-##        print bundlerOutputPath
-##        
-##        if not (os.path.isdir(bundlerOutputPath)):
-##            print("enter correct path")
-##           # win32api.MessageBox(0,'Invalid path. Enter the correct path','Warning')
-##        else:
-##            a=['--bundlerOutputPath='+bundlerOutputPath]
-##            RunPMVS.run(a)
-####            thread.start_new_thread( RunPMVS.run,(a,) )
-##        print "step 1 ends"
+
         Point_param.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
         Point_param.pushButton.setEnabled(True)
         return True
@@ -483,10 +457,7 @@ def OnCalcNumPhotos():
             #win32api.MessageBox("Focal length could not be obtained. Make sure to calculate or load camera parameters before proceeding further.")
         numerator=  (float(field_param.plainTextEdit.toPlainText())*focalLength)/( ccd*float(field_param.plainTextEdit_2.toPlainText()) )
         denominator=(1-float(field_param.comboBox.currentText())/100)
-##        if int(field_param.plainTextEdit.toPlainText())==0 or int(field_param.plainTextEdit_2.toPlainText())==0:
-##            #win32api.MessageBox('Path Length and Distance from building should be positive','Error')
-##            numerator=  (float(field_param.plainTextEdit.toPlainText())*focalLength)/( ccd*float(field_param.plainTextEdit_2.toPlainText()) )
-##            denominator=(1-float(field_param.comboBox.currentText())/100)
+
         if (numerator-1)/denominator >= 0:
             number=float( (numerator-1)/denominator+1 )
             field_param.plainTextEdit_5.setPlainText( str(int(number)) )
@@ -552,14 +523,6 @@ def saveCameraParameterClicked():
                                 print "file save error, try again"
                                 #win32api.MessageBox(0,"File save unsuccesful. Please try again.","Error")
 
-def footprintExtractionClicked():
-    dialog = QtGui.QFileDialog(None,"Open GoogleEarth.exe")
-    dialog.setFileMode(QtGui.QFileDialog.AnyFile)
-    dialog.setDirectory(wrk_drr)
-    dialog.exec_()
-    googleEarthPath= dialog.selectedFiles()[0]
-    os.startfile(googleEarthPath)
-
 
 def browseKMLClicked():
     print currentBuilding
@@ -609,23 +572,6 @@ def loadKMLClicked():
         threeD.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 14pt \"Times New Roman\";"))
     return True
     
-    
-
-def onExtractHeight():
-    dialog = QtGui.QFileDialog(None,"Select Directory")
-    dialog.setFileMode(QtGui.QFileDialog.Directory)
-    dialog.setDirectory(wrk_drr)
-    dialog.setOption(QtGui.QFileDialog.ShowDirsOnly)
-    dialog.exec_()
-    heightDir= str(dialog.selectedFiles()[0])
-    print projPath
-    a=projPath+"\input"
-    print a
-    b=[heightDir,a]
-    print 'callin utm_height'
-    Utm_height.run(b)
-    Height_param.pushButton_3.setStyleSheet(_fromUtf8("color: rgb(0, 85,0);\n""font: 10pt \"Times New Roman\";"))
-    return True
 
 def footProcessClicked():
     inputPath=str(projPath+"\\"+"input")
