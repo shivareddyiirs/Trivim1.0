@@ -255,28 +255,6 @@ def browseClicked(): # browseClicked in chessboard
     except:
         print("Can not convert to gray")
     
-def checkGeotag():
-        os.chdir(projPath)
-        print coordPath
-        fo=open(coordPath,'r')
-        flag=0
-        for lines in fo:
-            if(flag>0):
-                coordline=len(lines)
-                coords=lines.split()
-                xc=coords[0]
-                yc=coords[1]
-                zc=coords[2]
-                if(xc!='none' and yc!='none' and zc!='none'):
-                    print "Images are geotagged"
-                    break;
-                else:
-                    print "Images are not geotagged"
-                    os.chdir(wrk_drr)
-                    subprocess.call(['python','GeotagFrame.py'])
-                    break;
-            flag=flag+1
-        return False
 
 def guiCall():
     print "gui"
@@ -361,7 +339,6 @@ def generatePointCloudClicked():
                 shutil.copy(os.path.join(path_image,i),newPhotoPath)
                 print "copying photo"
         gps.run(projPath,[newPhotoPath ,os.path.join(projPath,"coordinates.txt")])# photo directory along with coordinates is passed to it
-        #checkGeotag()
         a=[os.path.join(wrk_drr,newPhotoPath)]
         name.run(a)
         os.chdir(wrk_drr)
