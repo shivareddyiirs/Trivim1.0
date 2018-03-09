@@ -87,20 +87,12 @@ def run():
 
     try:
         rms, camera_matrix, dist_coefs, rvecs, tvecs = cv2.calibrateCamera(obj_points, img_points, (w, h))
-
-        f = open(r"camera_calibration\sensor_value.txt","r")
-                #Read whole file into data
-        value=f.read()
-        value=value.split('-')
-        sensor_value=float(value[len(value)-1])
-        f.close()
-        
+       
         focalPixels=camera_matrix[0][0]
-        focalLength=(focalPixels*sensor_value)/width;
 
         with open('camera_calibration\\calib_temp.txt', 'w') as myFile:
-            myFile.write("Camera Name : "+str(value[0])+"\n")
-            myFile.write("Sensor Width : "+str(sensor_value)+"\n")
+            myFile.write("Camera Name : Not Required \n")
+            myFile.write("Sensor Width :Not Required \n")
             myFile.write("Root Mean Square(RMS) value : "+str(rms)+"\n")
             myFile.write("Distortion Coefficients : ")
             for log in dist_coefs.ravel():
@@ -108,7 +100,7 @@ def run():
             myFile.write("\n"+"Camera Matrix : "+"\n")
             for log in camera_matrix:
                 myFile.write(str(log)+"\n")
-            myFile.write("Focal Length(mm) : " + str( focalLength )+"\n")
+            myFile.write("Focal Length(mm) : Not Calculated\n")
         with open('camera_calibration\\finish.txt', 'w') as myFile:
             myFile.write("finish")
     except:

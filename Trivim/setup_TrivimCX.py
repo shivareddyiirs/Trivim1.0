@@ -2,18 +2,15 @@ from cx_Freeze import setup, Executable as cxExecutable
 import matplotlib
 
 includefiles = ['camera_calibration/','3d-modelling/','osmcmvs/','osmpmvs/',
-                'point_cloud/','segmentation_files/','software/','curr_proj.txt',
-                'osmbundler/','resources/','InstallationandUserManuals/',
+                'point_cloud/','software/','curr_proj.txt',
+                'osmbundler/','InstallationandUserManuals/',
                 'trivim1.jpg','isro1.jpg','iirs.jpg']
 excludes = []
 packages = ['matplotlib']
 
 WIN_Target = cxExecutable(
     script='NewApplication.py',
-    targetName='Trivim.exe',
-    compress=True,
-    appendScriptToLibrary=True,
-    appendScriptToExe=True
+    targetName='Trivim.exe'
     )
 
 setup(
