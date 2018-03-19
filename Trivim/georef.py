@@ -144,7 +144,11 @@ def getCam(pointdir,camGrCoords):
     
 def run(pointdir,camGrCoords,output):
     CamCoordsfile= getCam(pointdir,camGrCoords)
-    ply = os.path.join(pointdir,"bundle","points0"+str(numcam)+".ply")
+    if numcam <10:
+        strnumcam='00'+ str(numcam)
+    else:
+        strnumcam='0'+str(numcam)
+    ply = os.path.join(pointdir,"bundle","points"+strnumcam+".ply")
     georef(ply,CamCoordsfile,output)
 
 
