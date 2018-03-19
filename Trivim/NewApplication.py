@@ -6,7 +6,7 @@ import urlparse
 import numpy as np
 from os.path import expanduser
 home = expanduser("~")
-wrk_drr=os.getcwd()
+wrk_drr=os.path.realpath(__file__)
 try:
     with open(os.path.join(home,"Trivim.txt"),'w')as f:
         f.write(wrk_drr)
@@ -43,7 +43,7 @@ import RunBundler
 import RunCMVS
 import sqlite3
 import shutil
-import RunPMVS
+#import RunPMVS
 import thread
 import threading
 import addPlacemark_new
