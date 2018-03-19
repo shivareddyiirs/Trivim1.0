@@ -5,8 +5,13 @@ import os
 import urlparse
 import numpy as np
 from os.path import expanduser
+import sys
 home = expanduser("~")
-wrk_drr=os.path.dirname(os.path.realpath(__file__))
+if getattr(sys, 'frozen', False):
+    # frozen
+    wrk_drr = os.path.dirname(sys.executable)
+else:
+    wrk_drr=os.path.dirname(os.path.realpath(__file__))
 os.chdir(wrk_drr)
 try:
     with open(os.path.join(home,"Trivim.txt"),'w')as f:
@@ -327,9 +332,12 @@ def ShowImageSegNMask():
         image_file = str(seg_param.comboBox.currentText())
         print "image_file",image_file
         label2 = seg_param.label_2
-        pixmap = QPixmap(image_file);
-        pixmap1 = pixmap.scaled(label2.size(),QtCore.Qt.KeepAspectRatio);
+        pixmap = QPixmap(image_file)
+        print "width is", label2.width(), label2.height()
+        pixmap1 = pixmap.scaled(int(label2.width()),int(label2.height()),QtCore.Qt.KeepAspectRatio)
+        print "pixmap scaled"
         label2.setPixmap(pixmap1)
+        print "label is set"
         seg_param.pushButton_4.setEnabled(True)
         return True
             

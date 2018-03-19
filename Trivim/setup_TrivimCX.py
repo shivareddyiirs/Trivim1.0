@@ -1,12 +1,15 @@
 from cx_Freeze import setup, Executable as cxExecutable
 import matplotlib
+import os
+wrk_drr=os.path.dirname(os.path.realpath(__file__))
+os.chdir(wrk_drr)
 
 includefiles = ['camera_calibration/','3d-modelling/','osmcmvs/','osmpmvs/',
                 'point_cloud/','software/','curr_proj.txt',
                 'osmbundler/','InstallationandUserManuals/',
                 'trivim1.jpg','isro1.jpg','iirs.jpg']
 excludes = []
-packages = ['matplotlib']
+packages = ['numpy','matplotlib','collada','PIL']
 
 WIN_Target = cxExecutable(
     script='NewApplication.py',
