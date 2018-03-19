@@ -6,7 +6,8 @@ import urlparse
 import numpy as np
 from os.path import expanduser
 home = expanduser("~")
-wrk_drr=os.path.realpath(__file__)
+wrk_drr=os.path.dirname(os.path.realpath(__file__))
+os.chdir(wrk_drr)
 try:
     with open(os.path.join(home,"Trivim.txt"),'w')as f:
         f.write(wrk_drr)
@@ -507,10 +508,10 @@ def RepresentsInt(s):
 
 def addNewCameraClicked():
     camName=cameraCalib.plainTextEdit_2.toPlainText()
-    sensorWidth=cameraCalib.plainTextEdit_4.toPlainText()
-    if RepresentsInt(sensorWidth) and str(camName).strip(' ')!='':
+    #sensorWidth=cameraCalib.plainTextEdit_4.toPlainText()
+    if str(camName).strip(' ')!='':
             with open(os.path.join(wrk_drr,r'camera_calibration\camera_database.txt'),'a') as f:
-                a=str(camName).strip(' ') + "-" + str(sensorWidth).strip(' ') 
+                a=str(camName).strip(' ') 
                 f.write('\n'+a)
                 print a + " added to database"
                 cameraCalib.comboBox.addItem(a)
