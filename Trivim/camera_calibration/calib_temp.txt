@@ -1,9 +1,9 @@
-Camera Name : NIKON D60
-Sensor Width : 23.6
+Camera Name : Not Required 
+Sensor Width :Not Required 
 Root Mean Square(RMS) value : 1.35122359625
-Distortion Coefficients : -0.0847938752666	-0.0168768778949	-0.000600027689774	-0.000694397532601	0.492441784362	
+Distortion Coefficients : -0.08479387526661299	-0.016876877894876453	-0.0006000276897736279	-0.0006943975326010994	0.49244178436197084	
 Camera Matrix : 
-[ 3243.32527953     0.          1861.61462694]
-[    0.          3242.99662796  1291.95521685]
-[ 0.  0.  1.]
-Focal Length(mm) : 19.7682016005
+[3243.32527953    0.         1861.61462694]
+[   0.         3242.99662796 1291.95521685]
+[0. 0. 1.]
+Focal Length(mm) : Not Calculated
