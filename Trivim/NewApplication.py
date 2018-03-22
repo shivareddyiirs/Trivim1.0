@@ -471,7 +471,8 @@ def OnCalcNumPhotos():
         f=open(os.path.join(wrk_drr,r'camera_calibration\calib_temp.txt'),'r')
 ##        numerator=int(field_param.plainTextEdit.toPlainText())
 ##        denominator=int(field_param.plainTextEdit_2.toPlainText())
-        
+        focalLength=0
+        ccd=0
         for i in range(2):
             a=f.readline()
         try:
