@@ -467,45 +467,67 @@ def calculateParameterClicked():
 
 
 
+
+def getExif():
+    ret = {}
+    filename = []
+    trivim_dir= open(os.path.join(home,"Trivim.txt")).readline()
+    count=0
+    os.chdir(trivim_dir)
+    with open('camera_calibration\\value.txt', 'w') as myFile:
+            myFile.write("0")
+    f = open("camera_calibration\\path.txt","r")
+                #Read whole file into data
+    photoDir=f.read()
+    path=photoDir+"\\"
+    print path
+    for filename in os.listdir(path):
+        if filename.endswith('.JPG'):
+           filename=str(filename)
+           break
+    filename=(path + filename)
+    #print filename
+    imgfile=Image.open(filename)
+    print imgfile
+    info = imgfile._getexif()
+    print info
+    for tag, value in info.items():
+        decoded = TAGS.get(tag, tag)
+        ret[decoded] = value
+        if decoded == 'FocalLength':
+            print value
+            s=str(value)
+            token = s.split(',')
+            temp= token[0]
+            fl=temp.split('(')
+            focallength=fl[1]
+            print focallength
+            return focallength
+def sen(d):
+    HFOV=53.0
+    a=tan((0.5*HFOV)/57.296)
+    b=float(d)*a
+    sensorWidth=2.0*b
+    ccd=sensorWidth
+    print ccd
+    return ccd
+
+
 def OnCalcNumPhotos():
-        f=open(os.path.join(wrk_drr,r'camera_calibration\calib_temp.txt'),'r')
-##        numerator=int(field_param.plainTextEdit.toPlainText())
-##        denominator=int(field_param.plainTextEdit_2.toPlainText())
-        
-        for i in range(2):
-            a=f.readline()
-        try:
-            b=a.split(' ')
-            ccd=float(b[3])
-        except:
-            print("provide senser width")
-           # win32api.MessageBox("Sensor width could not be obtained. Make sure to calculate or load camera parameters before proceeding further.")
-
-        for i in range(7):
-            a=f.readline()
-
-        try:
-            b=a.split(' ')
-            focalLength=float(b[3])
-        except:
-            print("provide focal length")
-            #win32api.MessageBox("Focal length could not be obtained. Make sure to calculate or load camera parameters before proceeding further.")
-        numerator=  (float(field_param.plainTextEdit.toPlainText())*focalLength)/( ccd*float(field_param.plainTextEdit_2.toPlainText()) )
-        denominator=(1-float(field_param.comboBox.currentText())/100)
-##        if int(field_param.plainTextEdit.toPlainText())==0 or int(field_param.plainTextEdit_2.toPlainText())==0:
-##            #win32api.MessageBox('Path Length and Distance from building should be positive','Error')
-##            numerator=  (float(field_param.plainTextEdit.toPlainText())*focalLength)/( ccd*float(field_param.plainTextEdit_2.toPlainText()) )
-##            denominator=(1-float(field_param.comboBox.currentText())/100)
-        if (numerator-1)/denominator >= 0:
-            number=float( (numerator-1)/denominator+1 )
-            field_param.plainTextEdit_5.setPlainText( str(int(number)) )
-            time=int(float(field_param.plainTextEdit_4.toPlainText())*float(number))
-            hours=int(time/3600)
-            minutes=int( (time-hours*3600)/60 )
-            seconds=int( time-minutes*60-hours*3600 )
-            field_param.plainTextEdit_6.setPlainText( str(hours)+"h:"+str(minutes)+"m:"+str(seconds)+"s" )
-        else:
-            field_param.plainTextEdit_5.setPlainText(str(1))
+    d=getExif()
+    g=sen(d)
+    numerator=(float(field_param.plainTextEdit.toPlainText())*float(d))/( float(g)*float(field_param.plainTextEdit_2.toPlainText()) )
+    denominator=(1-float(field_param.comboBox.currentText())/100)
+    if (numerator-1)/denominator >= 0:
+        number=float( (numerator-1)/denominator+1 )
+        field_param.plainTextEdit_5.setPlainText( str(int(number)) )
+        time=int(float(field_param.plainTextEdit_4.toPlainText())*float(number))
+        hours=int(time/3600)
+        minutes=int( (time-hours*3600)/60 )
+        seconds=int( time-minutes*60-hours*3600 )
+        field_param.plainTextEdit_6.setPlainText( str(hours)+"h:"+str(minutes)+"m:"+str(seconds)+"s" )
+    else:
+        field_param.plainTextEdit_5.setPlainText(str(1))
         
 def RepresentsInt(s):
         try: 
@@ -972,7 +994,7 @@ def helpClicked():
     return True
 def aboutClicked():
     print "aboutClicked"
-    msg=str("Trivim 1.0\n\nTrivim (alpha) is an open source application for generating 3D-Street Model. The application generates photorealistic georeferenced 3D Street Model using photogrammetric processing of overlapping 2D images.\n\nTechnical Advisors: Dr. Y.V.N.Krishnamurthy, Mr. P.L.N. Raju, Ms. Shefali Agrawal\n\nTeam: Dr. Poonam S Tiwari, Dr. Hina Pande, Mr. S. Raghavendra, Mr. K. Shiva Reddy,\n           Mr. Mayank Sharma, BITS Interns (2013,2014), Ms. Shweta Beniwal\n\n\n© IIRS, 2014")
+    msg=str("Trivim 1.0\n\nTrivim (alpha) is an open source application for generating 3D-Street Model. The application generates photorealistic georeferenced 3D Street Model using photogrammetric processing of overlapping 2D images.\n\nTechnical Advisors: Dr. Y.V.N.Krishnamurthy, Mr. P.L.N. Raju, Ms. Shefali Agrawal\n\nTeam: Dr. Poonam S Tiwari, Dr. Hina Pande, Mr. S. Raghavendra, Mr. K. Shiva Reddy,\n           Mr. Mayank Sharma, BITS Interns (2013,2014), Ms. Shweta Beniwal\n\n\nÂ© IIRS, 2014")
     msgBox=QMessageBox()
     msgBox.setText(msg)
     msgBox.setWindowTitle("About Trivim")
