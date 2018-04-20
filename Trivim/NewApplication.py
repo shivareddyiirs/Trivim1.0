@@ -45,6 +45,8 @@ from glob import glob
 import subprocess
 import gps
 import name
+from PIL import Image
+from PIL.ExifTags import TAGS
 import RunBundler
 import RunCMVS
 import sqlite3
